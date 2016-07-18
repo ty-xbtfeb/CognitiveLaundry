@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CognitiveLaundry</string>
+    <string name="max">最大</string>
+    <string name="default_number">5</string>
+    <string name="bath_time">入浴時刻</string>
+    <string name="weather">天気予報</string>
+    <string name="left">残り</string>
+    <string name="unit">着</string>
+    <string name="laundry">洗濯した！</string>
+    <string name="best_day">オススメ！</string>
+    <string name="date">日にち</string>
+    <string name="input_time">時刻入力</string>
+    <string name="place">場所</string>
+    <string name="default_place">shinjuku</string>
+    <string name="save">保存</string>
+</resources>
