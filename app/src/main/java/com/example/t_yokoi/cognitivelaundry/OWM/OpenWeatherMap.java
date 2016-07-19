@@ -3,6 +3,8 @@ package com.example.t_yokoi.cognitivelaundry.OWM;
  * Created by masa on 2016/07/08.
  */
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,10 +14,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
 public class OpenWeatherMap {
     // need for requestURL
     final String basicURL = "http://api.openweathermap.org/data/2.5/forecast?";
+    // final String basicURL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
     final String apikey_number= "39f4f3cd560070db9b557c548e2550c7";
     final String apikey = "&APPID=" + apikey_number;
     // if you need to change request type, you change this. Now api return nearest requested position.
@@ -42,12 +46,16 @@ public class OpenWeatherMap {
     public String getWeatherJSON_cityname(String cityname, String country){
         // q=Yokohama,jp
         String requestPosition = "q=" + cityname + "," +country;
-        String requestURL = basicURL + requestPosition + requesttype + apikey;
+        String requestURL = basicURL + requestPosition + actualtype + apikey;
+        System.out.printf("%s\n",requestURL);
 
         String JSONdata=null;
         try {
             URL url = new URL(requestURL);
-            InputStream is = url.openConnection().getInputStream();
+            URLConnection urlCon = url.openConnection();
+            // urlCon.setRequestProperty("User-Agent","Mozilla/5.0");
+            // urlCon.setDoInput(true);
+            InputStream is = urlCon.getInputStream();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             StringBuilder sb = new StringBuilder();
@@ -58,11 +66,15 @@ public class OpenWeatherMap {
             JSONdata = sb.toString();
         } catch (MalformedURLException e) {
             // miss url
+            Log.e("TAG", "MURL");
             e.printStackTrace();
+            System.err.println(e);
             JSONdata="-1";
         } catch (IOException e) {
             // miss data structer
+            Log.e("TAG", "IOE");
             e.printStackTrace();
+            System.err.println(e);
             JSONdata="-2";
         }
         beforeCityName = cityname;

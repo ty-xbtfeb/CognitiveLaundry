@@ -4,6 +4,7 @@ package com.example.t_yokoi.cognitivelaundry;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,12 +16,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.t_yokoi.cognitivelaundry.OWM.WeatherCon;
+
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     //    private String day_ = "day_";
-    public static final int maxDays = 5;
+    public static final int maxDays = 4;
     public static SharedPreferences pre;
+    public static Day[] days = new Day[5];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         pre = getSharedPreferences("user_data", MODE_PRIVATE);
         final UserData userData = new UserData(pre);
         init(userData);
+//        WeatherCon wc = new WeatherCon();
 
         /**起動時の日時情報**/
         final Calendar calender = Calendar.getInstance();
@@ -47,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         int firstDayNum = userData.firstDayNum;
 
 
-        Day[] days = new Day[5];
-        for (int i = 0; i < 5; i++) days[i] = new Day();
+         for (int i = 0; i < 5; i++) days[i] = new Day();
 
         /**データを保存するボタン**/
         Button save = (Button) findViewById(R.id.saveButton);
@@ -85,9 +90,11 @@ public class MainActivity extends AppCompatActivity {
             /**天候による画像の表示**/
             weatherId = res.getIdentifier("weather_" + (i + 1), "id", getPackageName());
             days[i].weather = (ImageView) findViewById(weatherId);
+//            Bitmap bitmap = wc.getBitmap(i);
             if (days[i].weather != null) {
                 // TODO: 2016/07/11 天候に応じた画像を表示させる
                 days[i].weather.setImageResource(res.getIdentifier("sun", "mipmap", getPackageName()));
+//                days[i].weather.setImageBitmap(bitmap);
             }
 
             /**洗濯のオススメ日かの表示**/
@@ -162,7 +169,16 @@ public class MainActivity extends AppCompatActivity {
 //        editor.putInt("first", u.firstDayNum);
         editor.apply();
 
-        Toast.makeText(this, "your data is saved.", Toast.LENGTH_LONG).show();
+        AsyncHttpRequest task = new AsyncHttpRequest(this);
+        task.execute(u.place);
+//        Toast.makeText(this, "your data is saved.", Toast.LENGTH_LONG).show();
+//        WeatherCon wc = new WeatherCon();
+//        wc.setWeatherData(u.place);
+//        for (int i = 0; i < 5; i++) {
+//            Log.v("rain", "" + wc.getAmountRain(i));
+//
+//        }
+
     }
 
     /**
