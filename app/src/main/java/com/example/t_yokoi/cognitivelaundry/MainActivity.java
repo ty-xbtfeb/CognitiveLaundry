@@ -1,5 +1,6 @@
 package com.example.t_yokoi.cognitivelaundry;
 
+
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -19,7 +20,6 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     //    private String day_ = "day_";
     public static final int maxDays = 5;
-    public static int maxClothes = 5;
     public static SharedPreferences pre;
 
     @Override
