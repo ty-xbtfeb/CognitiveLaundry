@@ -25,16 +25,16 @@ public class WeatherCon {
         OpenWeatherMap owm = new OpenWeatherMap();
 
         // データをurlコールする必要がない
-        if(owm.isCallBeforein3hours() == false && owm.getBeforeCityName() == cityname) return 0;
+        if(!owm.isCallBeforeIn3hours() && owm.getBeforeCityName().equals(cityname)) return 0;
 
         String rootStr = owm.getWeatherJSON_cityname(cityname, country);
         JSONArray rootArr = owm.parseJSONdata(rootStr);
 
         // cnt==0ならデータなしなのでエラー
-        if(owm.isNotExistWeatherdata())  return -1;
+        if(owm.isNotExistWeatherData())  return -1;
 
         // 各日付の6時のUNIXtimeを取得
-        int firstutime = owm.getFirstUtime();
+        int firstutime = owm.getFirstUTime();
         Calendar cal = Calendar.getInstance();
         TimeZone area = TimeZone.getTimeZone(countryTime);
         cal.setTimeInMillis( (long)(firstutime*1000) );

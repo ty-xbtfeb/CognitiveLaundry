@@ -31,7 +31,8 @@ public class AsyncHttpRequest extends AsyncTask<String, String, WeatherCon> {
         // httpリクエスト投げる処理を書く。
         // ちなみに私はHttpClientを使って書きましたー
         WeatherCon wc = new WeatherCon();
-        wc.setWeatherData(s[0]);
+        int j= wc.setWeatherData(s[0]);
+        Log.v("weather", String.valueOf(j));
         return wc;
     }
 

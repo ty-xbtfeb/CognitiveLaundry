@@ -95,19 +95,19 @@ public class OpenWeatherMap {
             e.printStackTrace();
             listArray = null;
         }
-        insertFirstUtime(listArray);
-        insertLastUtime(listArray);
+        insertFirstUTime(listArray);
+        insertLastUTime(listArray);
         return listArray;
     }
 
     // chech !cnt==0
-    public boolean isNotExistWeatherdata() {
+    public boolean isNotExistWeatherData() {
         if (count==0) return true;
         else return false;
     }
 
 
-    public boolean isCallBeforein3hours(){
+    public boolean isCallBeforeIn3hours(){
         int nowutime = (int) (System.currentTimeMillis()/1000L);
         if( (nowutime - firstutime) <= 10800 ) return true;
         return false;
@@ -117,7 +117,7 @@ public class OpenWeatherMap {
         return beforeCityName;
     }
 
-    public void insertFirstUtime(JSONArray listArray){
+    public void insertFirstUTime(JSONArray listArray){
         try {
             JSONObject obj = listArray.getJSONObject(0);
             firstutime = obj.getInt("dt");
@@ -126,11 +126,11 @@ public class OpenWeatherMap {
         }
     }
 
-    public int getFirstUtime(){
+    public int getFirstUTime(){
         return firstutime;
     }
 
-    public void insertLastUtime(JSONArray listArray){
+    public void insertLastUTime(JSONArray listArray){
         try{
             JSONObject obj = listArray.getJSONObject(count-1);
             lastutime = obj.getInt("dt");
